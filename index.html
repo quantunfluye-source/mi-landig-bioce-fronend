@@ -1,0 +1,1519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Empleado Digital con voz IA que contesta, vende y cierra por WhatsApp mientras duermes. Atención 24/7 para tu negocio.">
+  <meta name="theme-color" content="#0A0A0A">
+  <meta property="og:title" content="Empleado Digital 24/7 | Angel Leon">
+  <meta property="og:description" content="Empleado Digital con voz IA que contesta, vende y cierra por WhatsApp mientras duermes. Atención 24/7 para tu negocio.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og-image.jpg">
+  <!-- Sube aquí la imagen real de 1200x630px cuando esté lista. -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Empleado Digital 24/7 | Angel Leon">
+  <meta name="twitter:description" content="Empleado Digital con voz IA que contesta, vende y cierra por WhatsApp mientras duermes. Atención 24/7 para tu negocio.">
+  <meta name="twitter:image" content="og-image.jpg">
+  <title>Angel Leon | Empleado Digital 24/7</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%230A0A0A%22%2F%3E%3Ctext%20x%3D%2232%22%20y%3D%2243%22%20text-anchor%3D%22middle%22%20font-family%3D%22Arial%2C%20sans-serif%22%20font-size%3D%2234%22%20font-weight%3D%22700%22%20fill%3D%22%23C9A86B%22%3EA%3C%2Ftext%3E%3C%2Fsvg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Montserrat:wght@400;600;700;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0A0A0A;
+      --gold: #C9A86B;
+      --gold-hover: #D9BC8A;
+      --text-light: #F5F5F0;
+      --contrast: #1A1A1A;
+      --emerald: #0F3D2E;
+      --text-muted: #B8B8B0;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      color: var(--text-light);
+      background: var(--bg-primary);
+      overflow-x: hidden;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(rgba(245, 245, 240, 0.03) 0.7px, transparent 0.7px);
+      background-size: 10px 10px;
+      opacity: 0.22;
+      mix-blend-mode: screen;
+    }
+
+    body > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: rgba(201, 168, 107, 0.3);
+      color: var(--text-light);
+    }
+
+    :focus-visible {
+      outline: 2px solid rgba(201, 168, 107, 0.75);
+      outline-offset: 3px;
+    }
+
+    @supports (text-wrap: balance) {
+      h1, h2, h3, p {
+        text-wrap: balance;
+      }
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 32px));
+      margin-inline: auto;
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        width: min(1200px, calc(100% - 64px));
+      }
+    }
+
+    /* NAVBAR */
+    .site-nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 1000;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .site-nav.is-scrolled {
+      background: rgba(10, 10, 10, 0.92);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom-color: rgba(201, 168, 107, 0.12);
+      box-shadow: 0 18px 40px rgba(201, 168, 107, 0.12);
+    }
+
+    .nav-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: clamp(12px, 3vw, 16px);
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--bg-primary);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1;
+      box-shadow: 0 16px 32px rgba(201, 168, 107, 0.18);
+      transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .nav-cta:hover {
+      background: var(--gold-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 20px 36px rgba(201, 168, 107, 0.24);
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 8px;
+      padding: 18px 30px;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+      white-space: nowrap;
+      will-change: transform;
+    }
+
+    .btn--primary {
+      background: var(--gold);
+      color: var(--bg-primary);
+      box-shadow: 0 18px 45px rgba(201, 168, 107, 0.22);
+    }
+
+    .btn--primary:hover {
+      background: var(--gold-hover);
+      transform: scale(1.05);
+      box-shadow: 0 24px 55px rgba(201, 168, 107, 0.3);
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 96px;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-primary) 52%, var(--contrast) 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: -18% -18% auto auto;
+      width: min(900px, 90vw);
+      height: min(900px, 90vw);
+      background: radial-gradient(circle, rgba(201, 168, 107, 0.12) 0%, rgba(201, 168, 107, 0.04) 24%, transparent 68%);
+      transform: translate3d(0, var(--hero-ambient-shift, 0px), 0);
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(245, 245, 240, 0.04) 0, transparent 26%),
+        radial-gradient(circle at 78% 12%, rgba(15, 61, 46, 0.16) 0, transparent 24%),
+        linear-gradient(180deg, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.96));
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero__grain {
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(245, 245, 240, 0.035) 0.7px, transparent 0.7px);
+      background-size: 10px 10px;
+      opacity: 0.24;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero__inner {
+      width: min(1160px, calc(100% - 32px));
+      margin-inline: auto;
+      transform: translate3d(0, var(--hero-content-shift, 0px), 0);
+      transition: transform 0.1s linear;
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      margin: 0 0 22px;
+      border: 1px solid rgba(201, 168, 107, 0.18);
+      border-radius: 999px;
+      background: rgba(26, 26, 26, 0.72);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero__title {
+      margin: 0;
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(48px, 8vw, 88px);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      max-width: 100%;
+    }
+
+    .hero__line {
+      display: block;
+    }
+
+    .hero__word {
+      display: inline-block;
+      margin-right: 0.2em;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: wordReveal 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      animation-delay: calc(var(--i) * 0.1s);
+    }
+
+    .hero__subtitle {
+      margin: 24px 0 0;
+      max-width: 680px;
+      color: var(--text-muted);
+      font-size: clamp(16px, 2.3vw, 18px);
+      line-height: 1.7;
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      animation-delay: 0.95s;
+    }
+
+    .hero__actions {
+      margin-top: 34px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+      animation-delay: 1.15s;
+    }
+
+    .hero__cta {
+      padding: 20px 48px;
+      min-height: 64px;
+      font-size: 16px;
+      box-shadow: 0 18px 45px rgba(201, 168, 107, 0.24);
+    }
+
+    .hero__scroll {
+      position: absolute;
+      left: 50%;
+      bottom: 28px;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      opacity: 0.8;
+      user-select: none;
+    }
+
+    .hero__chevron {
+      width: 18px;
+      height: 18px;
+      border-left: 1px solid rgba(201, 168, 107, 0.5);
+      border-bottom: 1px solid rgba(201, 168, 107, 0.5);
+      transform: rotate(-45deg);
+      animation: bounce 2.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    }
+
+    /* SECTIONS */
+    .section {
+      position: relative;
+      padding: clamp(72px, 10vw, 120px) 0;
+    }
+
+    .section--primary {
+      background: var(--bg-primary);
+    }
+
+    .section--contrast {
+      background: var(--contrast);
+    }
+
+    .section-heading {
+      width: min(860px, 100%);
+      margin: 0 auto 40px;
+      text-align: center;
+      display: grid;
+      gap: 12px;
+    }
+
+    .section-kicker {
+      margin: 0;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .section-title {
+      margin: 0;
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+    }
+
+    /* REVEAL */
+    .reveal {
+      --reveal-y: 30px;
+      opacity: 0;
+      transform: translateY(var(--reveal-y));
+      transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transition-delay: var(--delay, 0s);
+      will-change: opacity, transform;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      --reveal-y: 0px;
+    }
+
+    /* PROBLEM */
+    .problem-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .problem-card {
+      padding: 28px;
+      border-radius: 20px;
+      background: rgba(10, 10, 10, 0.36);
+      border: 1px solid rgba(201, 168, 107, 0.15);
+      box-shadow: 0 20px 50px rgba(201, 168, 107, 0.12);
+    }
+
+    .problem-card__icon {
+      width: 52px;
+      height: 52px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 22px;
+      color: var(--gold);
+    }
+
+    .problem-card__icon svg {
+      width: 100%;
+      height: 100%;
+      stroke: currentColor;
+    }
+
+    .problem-card h3 {
+      margin: 0 0 12px;
+      font-family: "Montserrat", sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .problem-card p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* SOLUTION */
+    .solution-grid {
+      display: grid;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .solution-copy {
+      max-width: 560px;
+      margin-inline: auto;
+    }
+
+    .solution-copy p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .solution-copy p + p {
+      margin-top: 16px;
+    }
+
+    .solution-copy strong {
+      color: var(--text-light);
+      font-weight: 700;
+    }
+
+    .chat {
+      width: 100%;
+    }
+
+    .chat__frame {
+      max-width: 560px;
+      margin-inline: auto;
+      padding: 18px;
+      border-radius: 28px;
+      background: rgba(26, 26, 26, 0.96);
+      border: 1px solid rgba(201, 168, 107, 0.16);
+      box-shadow: 0 28px 80px rgba(201, 168, 107, 0.16);
+    }
+
+    .chat__topbar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 4px 4px 18px;
+      border-bottom: 1px solid rgba(201, 168, 107, 0.1);
+    }
+
+    .chat__avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border: 1px solid rgba(201, 168, 107, 0.2);
+      color: var(--gold);
+      background:
+        radial-gradient(circle at 35% 30%, rgba(245, 245, 240, 0.12), transparent 38%),
+        linear-gradient(135deg, rgba(201, 168, 107, 0.12), rgba(15, 61, 46, 0.24));
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .chat__meta strong {
+      display: block;
+      font-family: "Montserrat", sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .chat__meta span {
+      display: block;
+      margin-top: 3px;
+      color: var(--text-muted);
+      font-size: 12px;
+    }
+
+    .chat__status {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      white-space: nowrap;
+    }
+
+    .chat__stage {
+      position: relative;
+      height: 390px;
+      margin-top: 18px;
+    }
+
+    .chat__bubble {
+      position: absolute;
+      max-width: min(82%, 360px);
+      padding: 14px 16px;
+      border-radius: 20px;
+      font-size: 15px;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(16px) scale(0.98);
+      box-shadow: 0 10px 24px rgba(201, 168, 107, 0.08);
+      animation: bubbleLoop 14s cubic-bezier(0.25, 0.46, 0.45, 0.94) infinite;
+    }
+
+    .chat__bubble--user {
+      right: 0;
+      background: rgba(201, 168, 107, 0.08);
+      border: 1px solid rgba(201, 168, 107, 0.18);
+      border-bottom-right-radius: 6px;
+    }
+
+    .chat__bubble--bot {
+      left: 0;
+      background: rgba(15, 61, 46, 0.24);
+      border: 1px solid rgba(201, 168, 107, 0.14);
+      border-bottom-left-radius: 6px;
+    }
+
+    .chat__bubble--typing {
+      left: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(26, 26, 26, 0.96);
+      border: 1px solid rgba(201, 168, 107, 0.12);
+      border-bottom-left-radius: 6px;
+    }
+
+    .chat__bubble--1 { top: 12px; animation-delay: 0s; }
+    .chat__bubble--2 { top: 86px; animation-delay: 2.4s; }
+    .chat__bubble--3 { top: 146px; animation-delay: 4.2s; }
+    .chat__bubble--4 { top: 238px; animation-delay: 7s; }
+    .chat__bubble--5 { top: 314px; animation-delay: 9.2s; }
+
+    .typing {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .typing__dots {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .typing__dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--gold);
+      opacity: 0.7;
+      animation: dotPulse 1.2s ease-in-out infinite;
+    }
+
+    .typing__dots span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .typing__dots span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .about__portrait {
+      width: 200px;
+      height: 200px;
+      margin-inline: auto;
+      border-radius: 50%;
+      border: 3px solid var(--gold);
+      background:
+        radial-gradient(circle at 35% 30%, rgba(245, 245, 240, 0.14), transparent 34%),
+        radial-gradient(circle at 68% 74%, rgba(201, 168, 107, 0.08), transparent 30%),
+        linear-gradient(135deg, rgba(245, 245, 240, 0.08), rgba(26, 26, 26, 0.95) 48%, rgba(10, 10, 10, 0.96));
+      box-shadow: 0 26px 70px rgba(201, 168, 107, 0.18);
+      position: relative;
+    }
+
+    .about__portrait::after {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 50%;
+      border: 1px solid rgba(201, 168, 107, 0.14);
+    }
+
+    .about__copy {
+      max-width: 640px;
+      margin-inline: auto;
+    }
+
+    .about__copy p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .about__copy p + p {
+      margin-top: 16px;
+    }
+
+    .signature {
+      display: inline-block;
+      margin-top: 20px;
+      font-family: "Dancing Script", cursive;
+      font-size: 32px;
+      line-height: 1;
+      color: var(--gold);
+    }
+
+    /* PLANS */
+    .plans-grid {
+      display: grid;
+      gap: 20px;
+      align-items: stretch;
+    }
+
+    .plan {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      padding: 28px;
+      border-radius: 16px;
+      background: rgba(26, 26, 26, 0.95);
+      border: 1px solid rgba(201, 168, 107, 0.15);
+      box-shadow: 0 20px 50px rgba(201, 168, 107, 0.12);
+      transform: translateY(calc(var(--reveal-y, 0px) + var(--lift, 0px))) scale(var(--plan-scale, 1));
+      transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      transform-origin: center top;
+    }
+
+    .plan:hover {
+      --lift: -8px;
+      box-shadow: 0 28px 75px rgba(201, 168, 107, 0.2);
+      border-color: rgba(201, 168, 107, 0.24);
+    }
+
+    .plan--featured {
+      border: 2px solid var(--gold);
+      box-shadow: 0 30px 80px rgba(201, 168, 107, 0.2);
+    }
+
+    .plan__badge {
+      position: absolute;
+      top: -14px;
+      right: 20px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: var(--bg-primary);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      box-shadow: 0 12px 28px rgba(201, 168, 107, 0.22);
+    }
+
+    .plan__name {
+      margin: 0;
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .plan__price {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      line-height: 1;
+      color: var(--text-light);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .plan__price .currency {
+      font-size: 22px;
+      line-height: 1;
+      padding-bottom: 0.14em;
+    }
+
+    .plan__price .amount {
+      font-size: clamp(42px, 4vw, 54px);
+    }
+
+    .plan__price .period {
+      font-size: 14px;
+      color: var(--text-muted);
+      padding-bottom: 0.55em;
+    }
+
+    .plan__text {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    .plan__list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .plan__list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      color: var(--text-muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .plan__list svg {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      margin-top: 0.2em;
+      stroke: var(--gold);
+    }
+
+    .plan__btn {
+      margin-top: auto;
+      width: 100%;
+      padding: 16px 22px;
+      min-height: 56px;
+      font-size: 15px;
+    }
+
+    /* DEMO */
+    .demo {
+      display: grid;
+      place-items: center;
+      padding: 8px 0 0;
+    }
+
+    .demo__btn {
+      padding: 24px 64px;
+      min-height: 72px;
+      font-size: 20px;
+      animation: pulseGold 2.4s ease-in-out infinite;
+    }
+
+    .demo__btn:hover {
+      animation-play-state: paused;
+    }
+
+    /* TESTIMONIALS */
+    .testimonials-grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .testimonial {
+      padding: 28px;
+      border-radius: 20px;
+      background: rgba(26, 26, 26, 0.84);
+      border: 1px solid rgba(201, 168, 107, 0.15);
+      box-shadow: 0 18px 46px rgba(201, 168, 107, 0.1);
+    }
+
+    .testimonial__stars {
+      display: flex;
+      gap: 4px;
+      color: var(--gold);
+      font-size: 16px;
+      margin-bottom: 18px;
+    }
+
+    .testimonial__quote {
+      margin: 0;
+      color: var(--text-light);
+      font-size: 17px;
+      line-height: 1.8;
+      font-style: italic;
+    }
+
+    .testimonial__business {
+      display: block;
+      margin-top: 18px;
+      color: var(--text-muted);
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    /* CTA FINAL */
+    .cta {
+      background:
+        radial-gradient(circle at 50% 40%, rgba(15, 61, 46, 0.26), rgba(10, 10, 10, 0) 58%),
+        linear-gradient(180deg, #0A0A0A 0%, #0A0A0A 100%);
+    }
+
+    .cta__panel {
+      display: grid;
+      justify-items: center;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .cta__title {
+      margin: 0;
+      font-family: "Montserrat", sans-serif;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1.06;
+      letter-spacing: -0.03em;
+      font-weight: 800;
+      max-width: 12ch;
+    }
+
+    .cta__btn {
+      padding: 24px 64px;
+      min-height: 80px;
+      font-size: 20px;
+    }
+
+    .cta__btn:hover {
+      transform: scale(1.05);
+    }
+
+    .cta__note {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--contrast);
+      padding: 28px 0 36px;
+      border-top: 1px solid rgba(201, 168, 107, 0.12);
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .footer-inner p {
+      margin: 0;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer-link {
+      color: var(--gold);
+      font-weight: 700;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--gold-hover);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes wordReveal {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: rotate(-45deg) translate3d(0, 0, 0);
+      }
+      50% {
+        transform: rotate(-45deg) translate3d(0, 8px, 0);
+      }
+    }
+
+    @keyframes bubbleLoop {
+      0% {
+        opacity: 0;
+        transform: translateY(16px) scale(0.98);
+      }
+      8% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      26% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      32% {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+      }
+    }
+
+    @keyframes dotPulse {
+      0%, 80%, 100% {
+        transform: scale(0.75);
+        opacity: 0.5;
+      }
+      40% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes pulseGold {
+      0%, 100% {
+        box-shadow: 0 18px 45px rgba(201, 168, 107, 0.18);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 24px 64px rgba(201, 168, 107, 0.3);
+        transform: scale(1.02);
+      }
+    }
+
+    @media (min-width: 768px) {
+      .hero__inner {
+        width: min(1160px, calc(100% - 64px));
+      }
+
+      .problem-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .solution-grid {
+        grid-template-columns: 0.92fr 1.08fr;
+        gap: 48px;
+      }
+
+      .about-grid {
+        grid-template-columns: 220px minmax(0, 1fr);
+        gap: 54px;
+      }
+
+      .plans-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .plan--featured {
+        --plan-scale: 1.05;
+        z-index: 1;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .footer-inner {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .hero {
+        padding-top: 108px;
+      }
+
+      .hero__title {
+        max-width: 100%;
+      }
+
+      .hero__cta,
+      .demo__btn,
+      .cta__btn,
+      .plan__btn {
+        width: 100%;
+        max-width: 100%;
+        white-space: normal;
+      }
+
+      .demo__btn,
+      .cta__btn {
+        padding-inline: 28px;
+      }
+
+      .hero__cta {
+        padding-inline: 28px;
+      }
+
+      .chat__stage {
+        height: 360px;
+      }
+
+      .chat__bubble {
+        max-width: 84%;
+        font-size: 14px;
+      }
+
+      .chat__bubble--1 { top: 10px; }
+      .chat__bubble--2 { top: 82px; }
+      .chat__bubble--3 { top: 140px; }
+      .chat__bubble--4 { top: 224px; }
+      .chat__bubble--5 { top: 294px; }
+
+      .cta__title {
+        max-width: 100%;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .nav-inner {
+        min-height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding-block: 12px;
+      }
+
+      .brand {
+        white-space: normal;
+        line-height: 1.2;
+      }
+
+      .nav-cta {
+        padding: 10px 14px;
+        font-size: 13px;
+        align-self: flex-start;
+      }
+
+      .hero {
+        padding-top: 150px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+
+      .hero__inner,
+      .hero::before {
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <nav class="site-nav" aria-label="Navegación principal">
+      <div class="container nav-inner">
+        <a class="brand" href="#top">Angel Leon | Empleado Digital</a>
+        <a class="nav-cta" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20Empleado%20Digital%2024%2F7" target="_blank" rel="noopener noreferrer" data-wa-message="Hola Angel, quiero información sobre el Empleado Digital 24/7">WhatsApp</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__grain" aria-hidden="true"></div>
+      <div class="hero__inner">
+        <p class="hero__eyebrow">Guadalajara, México · Voz IA que vende</p>
+        <h1 class="hero__title" id="hero-title" aria-label="Tu negocio no duerme. ¿Por qué tú sí?">
+          <span class="hero__line">
+            <span class="hero__word" style="--i: 0;">Tu</span>
+            <span class="hero__word" style="--i: 1;">negocio</span>
+            <span class="hero__word" style="--i: 2;">no</span>
+            <span class="hero__word" style="--i: 3;">duerme.</span>
+          </span>
+          <span class="hero__line">
+            <span class="hero__word" style="--i: 4;">¿Por</span>
+            <span class="hero__word" style="--i: 5;">qué</span>
+            <span class="hero__word" style="--i: 6;">tú</span>
+            <span class="hero__word" style="--i: 7;">sí?</span>
+          </span>
+        </h1>
+        <p class="hero__subtitle">Empleado Digital 24/7 que contesta, vende y cierra por WhatsApp mientras duermes.</p>
+        <div class="hero__actions">
+          <a class="btn btn--primary hero__cta" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20Empleado%20Digital%2024%2F7" target="_blank" rel="noopener noreferrer" data-wa-message="Hola Angel, quiero información sobre el Empleado Digital 24/7">Hablar con Angel por WhatsApp</a>
+        </div>
+      </div>
+      <div class="hero__scroll" aria-hidden="true">
+        <span class="hero__chevron"></span>
+        <span>Desliza</span>
+      </div>
+    </section>
+
+    <!-- PROBLEMA -->
+    <section class="section section--contrast" aria-labelledby="problema-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Problema</p>
+          <h2 class="section-title" id="problema-title">Esto te está costando dinero ahora mismo</h2>
+        </div>
+
+        <div class="problem-grid">
+          <article class="problem-card reveal" style="--delay: 0.05s;">
+            <div class="problem-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="8.5" stroke-width="1.5"></circle>
+                <path d="M12 7.5V12L15 14" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              </svg>
+            </div>
+            <h3>Pierdes clientes a las 2am</h3>
+            <p>Cuando el prospecto escribe y nadie responde, tu oportunidad se va con el de enfrente.</p>
+          </article>
+
+          <article class="problem-card reveal" style="--delay: 0.12s;">
+            <div class="problem-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 6.5A2.5 2.5 0 0 1 7.5 4h9A2.5 2.5 0 0 1 19 6.5v5A2.5 2.5 0 0 1 16.5 14H12l-4.5 4v-4h0A2.5 2.5 0 0 1 5 11.5v-5Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M8 8.5h8M8 11h5" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </div>
+            <h3>Contestar tarde = venta perdida</h3>
+            <p>El cliente no espera. Si tardas minutos, ya se movió con alguien más rápido.</p>
+          </article>
+
+          <article class="problem-card reveal" style="--delay: 0.19s;">
+            <div class="problem-card__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M6.5 7.5h11l-1 11h-9l-1-11Z" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M9 7.5A3 3 0 0 1 12 4a3 3 0 0 1 3 3.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M9.5 12.5h5M9.5 15.5h3" stroke-width="1.5" stroke-linecap="round"></path>
+              </svg>
+            </div>
+            <h3>Pagar sueldo duele</h3>
+            <p>Un empleado cuesta fijo, falta, descansa y además no trabaja mientras el celular sigue recibiendo mensajes.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUCIÓN -->
+    <section class="section section--primary" aria-labelledby="solucion-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Solución</p>
+          <h2 class="section-title" id="solucion-title">No es un bot. Es tu mejor vendedor</h2>
+        </div>
+
+        <div class="solution-grid">
+          <div class="solution-copy reveal" style="--delay: 0.08s;">
+            <p><strong>Responde en segundos.</strong> Califica al cliente, entiende lo que busca y lo guía hasta la compra sin perder naturalidad.</p>
+            <p>Tu negocio queda atendido las 24 horas con una voz IA que suena humana, ordenada y lista para cerrar por WhatsApp, incluso cuando tú ya cerraste el día.</p>
+          </div>
+
+          <div class="chat reveal" style="--delay: 0.16s;">
+            <div class="chat__frame">
+              <div class="chat__topbar">
+                <div class="chat__avatar" aria-hidden="true">EL</div>
+                <div class="chat__meta">
+                  <strong>Empleado Digital 24/7</strong>
+                  <span>Voz IA · WhatsApp activo</span>
+                </div>
+                <span class="chat__status">en línea</span>
+              </div>
+
+              <div class="chat__stage" aria-label="Vista previa de conversación de WhatsApp">
+                <div class="chat__bubble chat__bubble--user chat__bubble--1">Hola, ¿abren hoy en la noche?</div>
+                <div class="chat__bubble chat__bubble--typing chat__bubble--2">
+                  <span class="typing">Escribiendo</span>
+                  <span class="typing__dots" aria-hidden="true">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </span>
+                </div>
+                <div class="chat__bubble chat__bubble--bot chat__bubble--3">Sí. Te atiendo, tomo tus datos y te paso la info exacta.</div>
+                <div class="chat__bubble chat__bubble--user chat__bubble--4">Mándame precio y horario.</div>
+                <div class="chat__bubble chat__bubble--bot chat__bubble--5">Listo. También puedo agendarte y dejar la venta encaminada.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOBRE ANGEL LEON -->
+    <section class="section section--contrast" aria-labelledby="angel-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Angel Leon</p>
+          <h2 class="section-title" id="angel-title">Sistemas que trabajan. Sin humo.</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about__portrait reveal" aria-hidden="true" style="--delay: 0.08s;"></div>
+
+          <div class="about__copy reveal" style="--delay: 0.14s;">
+            <p>Soy Angel Leon, 8 años ayudando negocios en Guadalajara a vender más sin contratar más. Honesto, directo, responsable. No vendo humo, instalo sistemas que trabajan. Mi empleado digital ya atiende refaccionarias, estéticas y tiendas del Baratillo.</p>
+            <span class="signature">Angel Leon</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PLANES -->
+    <section class="section section--primary" aria-labelledby="planes-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Planes</p>
+          <h2 class="section-title" id="planes-title">Elige tu plan</h2>
+        </div>
+
+        <div class="plans-grid">
+          <article class="plan reveal" style="--delay: 0.05s;">
+            <p class="plan__name">Starter</p>
+            <div class="plan__price" aria-label="Precio del plan Starter">
+              <span class="currency">$</span>
+              <span class="amount">390</span>
+              <span class="period">/mes</span>
+            </div>
+            <p class="plan__text">Arranque sólido para empezar a contestar y vender sin dejar clientes en visto.</p>
+            <ul class="plan__list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>600 minutos de voz IA</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>Respuestas automáticas WhatsApp</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>SEO básico</span>
+              </li>
+            </ul>
+            <a class="btn btn--primary plan__btn" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20me%20interesa%20el%20plan%20STARTER" target="_blank" rel="noopener noreferrer" data-wa-message="Hola Angel, me interesa el plan STARTER">Empezar ahora</a>
+          </article>
+
+          <article class="plan plan--featured reveal" style="--delay: 0.12s;">
+            <span class="plan__badge">Más popular</span>
+            <p class="plan__name">Pro</p>
+            <div class="plan__price" aria-label="Precio del plan Pro">
+              <span class="currency">$</span>
+              <span class="amount">590</span>
+              <span class="period">/mes</span>
+            </div>
+            <p class="plan__text">El punto ideal para vender mejor, responder más rápido y medir lo que sí está funcionando.</p>
+            <ul class="plan__list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>1500 minutos de voz IA</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>SEO + AEO para asistentes de voz</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>Reportes semanales</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>Prioridad de soporte</span>
+              </li>
+            </ul>
+            <a class="btn btn--primary plan__btn" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20me%20interesa%20el%20plan%20PRO" target="_blank" rel="noopener noreferrer" data-wa-message="Hola Angel, me interesa el plan PRO">Empezar ahora</a>
+          </article>
+
+          <article class="plan reveal" style="--delay: 0.19s;">
+            <p class="plan__name">Premium</p>
+            <div class="plan__price" aria-label="Precio del plan Premium">
+              <span class="currency">$</span>
+              <span class="amount">990</span>
+              <span class="period">/mes</span>
+            </div>
+            <p class="plan__text">Para negocios que quieren presencia fuerte, automatización más seria y cobertura completa.</p>
+            <ul class="plan__list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>3800 minutos de voz IA</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>SEO + AEO + GEO</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>Integración multi-canal</span>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+                <span>Soporte prioritario 24/7</span>
+              </li>
+            </ul>
+            <a class="btn btn--primary plan__btn" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20me%20interesa%20el%20plan%20PREMIUM" target="_blank" rel="noopener noreferrer" data-wa-message="Hola Angel, me interesa el plan PREMIUM">Empezar ahora</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO EN VIVO -->
+    <section class="section section--contrast" aria-labelledby="demo-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">En vivo</p>
+          <h2 class="section-title" id="demo-title">¿Quieres verlo en acción?</h2>
+        </div>
+
+        <div class="demo">
+          <a class="btn btn--primary demo__btn reveal" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20quiero%20probar%20el%20Empleado%20Digital" target="_blank" rel="noopener noreferrer" data-wa-message="Hola Angel, quiero probar el Empleado Digital">Probar ahora</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIOS -->
+    <section class="section section--primary" aria-labelledby="testimonios-title">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="section-kicker">Prueba social</p>
+          <h2 class="section-title" id="testimonios-title">Clientes que ya venden mientras siguen con su día</h2>
+        </div>
+
+        <div class="testimonials-grid">
+          <article class="testimonial reveal" style="--delay: 0.05s;">
+            <div class="testimonial__stars" aria-label="5 de 5 estrellas">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <p class="testimonial__quote">“Desde que puse el empleado, vendo mientras como.”</p>
+            <span class="testimonial__business">Tacos El Güero</span>
+          </article>
+
+          <article class="testimonial reveal" style="--delay: 0.12s;">
+            <div class="testimonial__stars" aria-label="5 de 5 estrellas">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <p class="testimonial__quote">“La refa ya no se me queda sin respuesta. Hasta en domingo contesta parejito.”</p>
+            <span class="testimonial__business">Refaccionaria El Norte</span>
+          </article>
+
+          <article class="testimonial reveal" style="--delay: 0.19s;">
+            <div class="testimonial__stars" aria-label="5 de 5 estrellas">
+              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+            </div>
+            <p class="testimonial__quote">“Mis citas entran solas y ya no pierdo clientas por tardarme en contestar.”</p>
+            <span class="testimonial__business">Estética Lirio</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA FINAL -->
+    <section class="section cta" aria-labelledby="cta-title">
+      <div class="container">
+        <div class="cta__panel">
+          <p class="section-kicker reveal">Cierre</p>
+          <h2 class="cta__title reveal" id="cta-title" style="--delay: 0.05s;">¿Listo para tu empleado digital?</h2>
+          <a class="btn btn--primary cta__btn reveal" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20Empleado%20Digital%2024%2F7" target="_blank" rel="noopener noreferrer" data-wa-message="Hola Angel, quiero información sobre el Empleado Digital 24/7">Hablar por WhatsApp</a>
+          <p class="cta__note reveal" style="--delay: 0.12s;">Respuesta en minutos. Sin compromiso.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <p>Angel Leon © 2025 | Empleado Digital 24/7</p>
+      <a class="footer-link" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20Empleado%20Digital%2024%2F7" target="_blank" rel="noopener noreferrer" data-wa-message="Hola Angel, quiero información sobre el Empleado Digital 24/7">WhatsApp</a>
+    </div>
+  </footer>
+
+  <script>
+    (() => {
+      const nav = document.querySelector('.site-nav');
+      const hero = document.querySelector('.hero');
+      const waLinks = document.querySelectorAll('[data-wa-message]');
+      const revealItems = document.querySelectorAll('.reveal');
+      const waBase = 'https://wa.me/523348984979?text=';
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      waLinks.forEach((link) => {
+        const message = link.dataset.waMessage || '';
+        link.href = waBase + encodeURIComponent(message);
+      });
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, {
+          threshold: 0.18,
+          rootMargin: '0px 0px -8% 0px'
+        });
+
+        revealItems.forEach((item) => observer.observe(item));
+      } else {
+        revealItems.forEach((item) => item.classList.add('visible'));
+      }
+
+      let ticking = false;
+
+      const updateScrollState = () => {
+        const scrollY = window.scrollY || 0;
+        nav.classList.toggle('is-scrolled', scrollY > 50);
+
+        if (!reduceMotion) {
+          const contentShift = Math.min(scrollY * 0.16, 96);
+          const ambientShift = Math.min(scrollY * 0.08, 54);
+          hero.style.setProperty('--hero-content-shift', `${contentShift}px`);
+          hero.style.setProperty('--hero-ambient-shift', `${ambientShift}px`);
+        }
+
+        ticking = false;
+      };
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateScrollState);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      updateScrollState();
+    })();
+  </script>
+</body>
+</html>
