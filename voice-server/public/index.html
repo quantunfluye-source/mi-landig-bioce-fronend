@@ -1118,5 +1118,138 @@
       <a href="https://wa.me/523348984979" target="_blank" rel="noopener" class="footer-link">WhatsApp: 33 4898 4979</a>
     </div>
   </footer>
+
+  <script>
+    (() => {
+      // ── CONSTANTES ──────────────────────────────────────
+      const SERVER = ''; // vacío = mismo origen (Render sirve el HTML)
+
+      // ── NAVBAR SCROLL ───────────────────────────────────
+      const nav = document.getElementById('nav');
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 50);
+      }, { passive: true });
+
+      // ── REVEAL CON INTERSECTION OBSERVER ─────────────────
+      // Primero hace todo visible como fallback de seguridad
+      const allReveal = document.querySelectorAll('.reveal');
+      
+      // Fallback: si el observer no funciona, revela todo en 1.5s
+      const fallbackTimer = setTimeout(() => {
+        allReveal.forEach(el => el.classList.add('visible'));
+      }, 1500);
+
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.05, rootMargin: '0px' });
+
+        allReveal.forEach(el => observer.observe(el));
+        
+        // Si el observer funciona, cancelamos el fallback
+        clearTimeout(fallbackTimer);
+        // Pero dejamos uno de seguridad más largo igual
+        setTimeout(() => {
+          allReveal.forEach(el => el.classList.add('visible'));
+        }, 3000);
+      }
+
+      // ── VOICE BAR ────────────────────────────────────────
+      const voiceBtn = document.getElementById('voice-btn');
+      const voiceStatus = document.getElementById('voice-status');
+
+      if (!voiceBtn) return;
+
+      const setStatus = (msg, isError = false) => {
+        voiceStatus.textContent = msg;
+        voiceStatus.style.color = isError ? '#ff6b6b' : 'var(--muted)';
+      };
+
+      const playBase64Audio = (base64) => {
+        const audio = new Audio(`data:audio/mp3;base64,${base64}`);
+        audio.play().catch(() => setStatus('No se pudo reproducir el audio', true));
+        return new Promise(resolve => { audio.onended = resolve; audio.onerror = resolve; });
+      };
+
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      voiceBtn.addEventListener('click', async () => {
+        // Si no hay SpeechRecognition, reproducir solo el saludo de Angel
+        if (!SpeechRecognition) {
+          try {
+            voiceBtn.disabled = true;
+            voiceBtn.textContent = '⏳ Cargando...';
+            setStatus('Cargando voz de Angel...');
+            const res = await fetch(`${SERVER}/speak`, { method: 'POST' });
+            if (!res.ok) throw new Error('Error del servidor');
+            const { audio } = await res.json();
+            setStatus('🔊 Reproduciendo...');
+            await playBase64Audio(audio);
+            setStatus('');
+          } catch (e) {
+            setStatus('Error al conectar. Intenta de nuevo.', true);
+          } finally {
+            voiceBtn.disabled = false;
+            voiceBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/></svg> Pregúntale algo a Angel`;
+          }
+          return;
+        }
+
+        // Con SpeechRecognition: escuchar pregunta → /ask → responder en voz
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'es-MX';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        voiceBtn.disabled = true;
+        voiceBtn.textContent = '🎙️ Escuchando...';
+        setStatus('Habla ahora, te estoy escuchando...');
+
+        recognition.start();
+
+        recognition.onresult = async (event) => {
+          const question = event.results[0][0].transcript;
+          setStatus(`Dijiste: "${question}"`);
+          voiceBtn.textContent = '⏳ Respondiendo...';
+
+          try {
+            const res = await fetch(`${SERVER}/ask`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ question })
+            });
+            if (!res.ok) throw new Error('Error del servidor');
+            const { answer, audio } = await res.json();
+            setStatus(`Angel: "${answer}"`);
+            await playBase64Audio(audio);
+            setStatus('');
+          } catch (e) {
+            setStatus('Error al procesar tu pregunta. Intenta de nuevo.', true);
+          } finally {
+            voiceBtn.disabled = false;
+            voiceBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/></svg> Pregúntale algo a Angel`;
+          }
+        };
+
+        recognition.onerror = (e) => {
+          setStatus(`Error de micrófono: ${e.error}. Intenta de nuevo.`, true);
+          voiceBtn.disabled = false;
+          voiceBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/></svg> Pregúntale algo a Angel`;
+        };
+
+        recognition.onnomatch = () => {
+          setStatus('No entendí bien. Intenta de nuevo.', true);
+          voiceBtn.disabled = false;
+          voiceBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/></svg> Pregúntale algo a Angel`;
+        };
+      });
+
+    })();
+  </script>
 </body>
 </html>
