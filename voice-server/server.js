@@ -13,20 +13,9 @@ const PROFILE_PATH = path.join(__dirname, 'angel_profile.json');
 const TTS_ENDPOINT = 'https://texttospeech.googleapis.com/v1/text:synthesize';
 const VOICES = ['es-MX-Wavenet-B', 'es-MX-Standard-B'];
 const corsOptions = {
-  origin(origin, callback) {
-    if (!origin || !ALLOWED_ORIGIN) {
-      callback(null, true);
-      return;
-    }
-
-    if (origin === ALLOWED_ORIGIN) {
-      callback(null, true);
-      return;
-    }
-
-    callback(null, false);
-  },
-  methods: ['GET', 'POST', 'OPTIONS']
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 };
 
 app.use(express.json({ limit: '1mb' }));
