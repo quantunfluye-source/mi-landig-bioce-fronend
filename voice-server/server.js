@@ -55,14 +55,24 @@ async function readProfile() {
   }
 }
 
-async function synthesizeSpeech(text, voiceName) {
+async function synthesizeSpeech(text, voiceName = null) {
   if (!GOOGLE_TTS_API_KEY) {
-    console.error('DIAGNOSTICO: GOOGLE_TTS_API_KEY no está definida en el entorno.');
+    console.error('DIAGNOSTICO: GOOGLE_TTS_API_KEY no está definida.');
     throw new Error('Missing GOOGLE_TTS_API_KEY');
   }
 
-  console.log(`Intentando síntesis con voz: ${voiceName}...`);
+  const label = voiceName || 'GENERICA (MALE)';
+  console.log(`Intentando síntesis con: ${label}...`);
   
+  const voiceConfig = {
+    languageCode: 'es-MX',
+    ssmlGender: 'MALE'
+  };
+
+  if (voiceName) {
+    voiceConfig.name = voiceName;
+  }
+
   const response = await fetch(`${TTS_ENDPOINT}?key=${encodeURIComponent(GOOGLE_TTS_API_KEY)}`, {
     method: 'POST',
     headers: {
@@ -70,13 +80,10 @@ async function synthesizeSpeech(text, voiceName) {
     },
     body: JSON.stringify({
       input: { text },
-      voice: {
-        languageCode: 'es-MX',
-        name: voiceName
-      },
+      voice: voiceConfig,
       audioConfig: {
         audioEncoding: 'MP3',
-        pitch: -2.0, // Un poco más grave para que suene más serio/profesional
+        pitch: -2.0,
         speakingRate: 1.0
       }
     })
@@ -85,18 +92,19 @@ async function synthesizeSpeech(text, voiceName) {
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    console.error('DIAGNOSTICO - Error detallado de Google:', JSON.stringify(payload, null, 2));
-    const message = payload?.error?.message || `Google API error: ${response.status}`;
-    const error = new Error(message);
+    const errorMsg = payload?.error?.message || `Status ${response.status}`;
+    console.warn(`FALLÓ ${label}: ${errorMsg}`);
+    const error = new Error(errorMsg);
     error.status = response.status;
-    error.fullError = payload;
+    error.details = payload;
     throw error;
   }
 
   if (!payload.audioContent) {
-    throw new Error('No audio content in Google response');
+    throw new Error(`No audioContent para ${label}`);
   }
 
+  console.log(`¡ÉXITO con ${label}!`);
   return payload.audioContent;
 }
 
@@ -106,28 +114,38 @@ app.post('/speak', async (req, res) => {
     const greeting = String(profile?.greeting || '').trim();
 
     if (!greeting) {
-      return res.status(400).json({ error: 'angel_profile.json does not contain greeting text' });
+      return res.status(400).json({ error: 'angel_profile.json sin texto' });
     }
 
     let audio = '';
     let lastError = null;
 
+    // 1. Intentar con la lista de voces específicas
     for (const voiceName of VOICES) {
       try {
         audio = await synthesizeSpeech(greeting, voiceName);
-        break;
+        if (audio) break;
+      } catch (error) {
+        lastError = error;
+      }
+    }
+
+    // 2. Si fallaron todas las específicas, intentar una genérica (dejar que Google elija)
+    if (!audio) {
+      try {
+        audio = await synthesizeSpeech(greeting, null);
       } catch (error) {
         lastError = error;
       }
     }
 
     if (!audio) {
-      throw lastError || new Error('Unable to synthesize audio');
+      console.error('DIAGNOSTICO FINAL - Todas las voces fallaron. Último error:', JSON.stringify(lastError?.details || lastError?.message, null, 2));
+      throw lastError || new Error('Unable to synthesize audio after all attempts');
     }
 
     res.json({ audio });
   } catch (error) {
-    console.error('ERROR EN /speak:', error.message);
     res.status(500).json({
       error: 'Unable to generate voice audio',
       details: error.message
