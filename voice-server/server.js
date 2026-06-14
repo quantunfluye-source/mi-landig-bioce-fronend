@@ -9,16 +9,15 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || '';
 const GOOGLE_TTS_API_KEY = process.env.GOOGLE_TTS_API_KEY || '';
+const DEEPSEEK_API_KEY = process.env.DEEPSEEK_API_KEY || '';
 const PROFILE_PATH = path.join(__dirname, 'angel_profile.json');
 const TTS_ENDPOINT = 'https://texttospeech.googleapis.com/v1/text:synthesize';
+const DEEPSEEK_ENDPOINT = 'https://api.deepseek.com/chat/completions';
 const VOICES = [
-  'es-MX-Neural2-B', // Premium - Neural 2 (Masculina, principal)
-  'es-MX-Neural2-C', // Premium - Neural 2 (Masculina, alternativa)
-  'es-MX-Studio-B',  // Premium - Studio (Ultra calidad, si está disponible)
-  'es-MX-Wavenet-B', // Premium - Wavenet (Masculina, clásica alta calidad)
-  'es-MX-Wavenet-C', // Premium - Wavenet (Masculina, alternativa)
-  'es-MX-Standard-B', // Estándar (Masculina, respaldo 1)
-  'es-MX-Standard-A'  // Estándar (Respaldo final)
+  'es-US-Neural2-B',      // masculina neural, muy natural
+  'es-US-Wavenet-B',      // masculina wavenet
+  'es-US-Standard-B',     // masculina estándar (siempre disponible)
+  'es-US-Standard-C'      // fallback final
 ];
 
 const corsOptions = {
@@ -65,7 +64,7 @@ async function synthesizeSpeech(text, voiceName = null) {
   console.log(`Intentando síntesis con: ${label}...`);
   
   const voiceConfig = {
-    languageCode: 'es-MX',
+    languageCode: 'es-US',
     ssmlGender: 'MALE'
   };
 
@@ -150,6 +149,74 @@ app.post('/speak', async (req, res) => {
       error: 'Unable to generate voice audio',
       details: error.message
     });
+  }
+});
+
+app.post('/ask', async (req, res) => {
+  if (!DEEPSEEK_API_KEY) {
+    return res.status(503).json({ error: 'DeepSeek API key is not configured' });
+  }
+
+  const { question } = req.body;
+  if (!question) {
+    return res.status(400).json({ error: 'Question is required' });
+  }
+
+  try {
+    const profile = await readProfile();
+    const systemContent = `Eres Angel Leon, vendedor de Empleado Digital 24/7 en Guadalajara. Contexto: [${profile?.greeting}]. Responde SIEMPRE en español mexicano, tono directo y confiable, máximo 3 oraciones cortas, sin tecnicismos. Si preguntan por precio o contacto, menciona el WhatsApp 33 4898 4979.`;
+
+    const dsResponse = await fetch(DEEPSEEK_ENDPOINT, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${DEEPSEEK_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: "deepseek-chat",
+        messages: [
+          { role: "system", content: systemContent },
+          { role: "user", content: question }
+        ],
+        max_tokens: 150,
+        temperature: 0.7
+      })
+    });
+
+    const dsData = await dsResponse.json();
+    if (!dsResponse.ok) {
+      throw new Error(dsData.error?.message || 'DeepSeek API error');
+    }
+
+    const answer = dsData.choices[0].message.content;
+
+    // Sintetizar respuesta a voz
+    let audio = '';
+    let lastError = null;
+
+    for (const voiceName of VOICES) {
+      try {
+        audio = await synthesizeSpeech(answer, voiceName);
+        if (audio) break;
+      } catch (error) {
+        lastError = error;
+      }
+    }
+
+    if (!audio) {
+      try {
+        audio = await synthesizeSpeech(answer, null);
+      } catch (error) {
+        lastError = error;
+      }
+    }
+
+    if (!audio) throw lastError || new Error('Unable to synthesize response audio');
+
+    res.json({ answer, audio });
+  } catch (error) {
+    console.error('ERROR EN /ask:', error.message);
+    res.status(500).json({ error: 'Error processing question', details: error.message });
   }
 });
 

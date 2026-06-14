@@ -875,6 +875,84 @@
       color: var(--gold-hover);
     }
 
+    /* CONVERSATION BAR */
+    .voice-bar {
+      position: relative;
+      background: #1A1A1A;
+      border-bottom: 1px solid rgba(201, 168, 107, 0.15);
+      padding: 16px;
+      z-index: 900;
+      margin-top: 76px; /* Altura aproximada del navbar */
+    }
+
+    .voice-bar__inner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .voice-bar__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: 1px solid rgba(201, 168, 107, 0.3);
+      color: var(--gold);
+      padding: 10px 20px;
+      border-radius: 99px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .voice-bar__btn:hover {
+      background: rgba(201, 168, 107, 0.1);
+      border-color: var(--gold);
+    }
+
+    .voice-bar__btn--primary {
+      background: var(--gold);
+      color: var(--bg-primary);
+      border: none;
+    }
+
+    .voice-bar__btn--primary:hover {
+      background: var(--gold-hover);
+    }
+
+    .voice-bar__mic-icon {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 1.5;
+      fill: none;
+    }
+
+    .voice-bar__status {
+      position: absolute;
+      bottom: -25px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 767px) {
+      .voice-bar__inner {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .voice-bar {
+        margin-top: 0; /* En mobile el nav puede variar */
+      }
+    }
+
     /* STATS */
     .stats-band {
       background: var(--contrast);
@@ -1454,6 +1532,23 @@
         <a class="nav-cta" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20Empleado%20Digital%2024%2F7" target="_blank" rel="noopener noreferrer" data-wa-message="Hola Angel, quiero información sobre el Empleado Digital 24/7">WhatsApp</a>
       </div>
     </nav>
+    <div class="voice-bar">
+      <div class="voice-bar__inner">
+        <button type="button" class="voice-bar__btn voice-bar__btn--primary" data-voice-play>
+          <span aria-hidden="true">&#9654;</span> Escuchar a Angel
+        </button>
+        <button type="button" class="voice-bar__btn" id="mic-btn">
+          <svg class="voice-bar__mic-icon" viewBox="0 0 24 24">
+            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path>
+            <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+            <line x1="12" y1="19" x2="12" y2="23"></line>
+            <line x1="8" y1="23" x2="16" y2="23"></line>
+          </svg>
+          Pregúntale algo
+        </button>
+        <div class="voice-bar__status" id="conv-status"></div>
+      </div>
+    </div>
   </header>
 
   <main id="top">
@@ -1652,14 +1747,6 @@
           <div class="about__copy reveal" style="--delay: 0.14s;">
             <p>Soy Angel Leon, 8 años ayudando negocios en Guadalajara a vender más sin contratar más. Honesto, directo, responsable. No vendo humo, instalo sistemas que trabajan. Mi empleado digital ya atiende refaccionarias, estéticas y tiendas del Baratillo.</p>
             <span class="signature">Angel Leon</span>
-            <div class="about__voice">
-              <button type="button" class="about__voice-btn" data-voice-play aria-label="Escuchar a Angel">
-                <span class="about__voice-icon" aria-hidden="true">&#9654;</span>
-                <span class="about__voice-spinner" aria-hidden="true"></span>
-              </button>
-              <p class="about__voice-hint">Haz clic para escuchar a Angel</p>
-              <p class="about__voice-status" data-voice-status aria-live="polite"></p>
-            </div>
           </div>
         </div>
       </div>
@@ -1929,75 +2016,87 @@
       const revealItems = document.querySelectorAll('.reveal');
       const counterItems = document.querySelectorAll('[data-counter]');
       const voiceButton = document.querySelector('[data-voice-play]');
-      const voiceStatus = document.querySelector('[data-voice-status]');
-      const VOICE_SERVER_URL = ''; // Al estar unificado, se usa la URL raíz
-      const waBase = 'https://wa.me/523348984979?text=';
-      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const micButton = document.getElementById('mic-btn');
+      const voiceStatus = document.getElementById('conv-status');
+      const VOICE_SERVER_URL = '';
       let voiceAudio = null;
       let voiceAudioUrl = '';
 
-      waLinks.forEach((link) => {
-        const message = link.dataset.waMessage || '';
-        link.href = waBase + encodeURIComponent(message);
-      });
-
-      const setVoiceLoading = (isLoading) => {
-        if (!voiceButton) {
-          return;
-        }
-
-        voiceButton.classList.toggle('is-loading', isLoading);
-        voiceButton.disabled = isLoading;
-        voiceButton.setAttribute('aria-busy', isLoading ? 'true' : 'false');
-      };
-
       const setVoiceMessage = (message = '', isError = false) => {
-        if (!voiceStatus) {
-          return;
-        }
-
+        if (!voiceStatus) return;
         voiceStatus.textContent = message;
-        voiceStatus.classList.toggle('is-error', isError);
+        voiceStatus.style.color = isError ? '#C9A86B' : '#B8B8B0';
       };
 
-      const clearVoiceAudio = () => {
-        if (voiceAudio) {
-          voiceAudio.pause();
-          voiceAudio.removeAttribute('src');
-          voiceAudio.load();
-          voiceAudio = null;
-        }
-
-        if (voiceAudioUrl) {
-          URL.revokeObjectURL(voiceAudioUrl);
-          voiceAudioUrl = '';
-        }
+      const playBase64Audio = (base64) => {
+        if (voiceAudio) voiceAudio.pause();
+        const blob = base64ToBlob(base64, 'audio/mpeg');
+        voiceAudioUrl = URL.createObjectURL(blob);
+        voiceAudio = new Audio(voiceAudioUrl);
+        voiceAudio.play();
       };
 
       const base64ToBlob = (base64, mimeType) => {
         const binary = window.atob(base64);
         const bytes = new Uint8Array(binary.length);
-
-        for (let i = 0; i < binary.length; i += 1) {
-          bytes[i] = binary.charCodeAt(i);
-        }
-
+        for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
         return new Blob([bytes], { type: mimeType });
       };
 
-      if (voiceButton && voiceStatus) {
-        voiceButton.addEventListener('click', async () => {
-          try {
-            setVoiceLoading(true);
-            setVoiceMessage('');
-            clearVoiceAudio();
+      // Lógica de Reproducción de Saludo
+      voiceButton.addEventListener('click', async () => {
+        try {
+          setVoiceMessage('Generando saludo...');
+          const response = await fetch(`${VOICE_SERVER_URL}/speak`, { method: 'POST' });
+          const data = await response.json();
+          if (data.audio) {
+            playBase64Audio(data.audio);
+            setVoiceMessage('Escuchando saludo...');
+          }
+        } catch (e) {
+          setVoiceMessage('Error al conectar con el servidor', true);
+        }
+      });
 
-            const response = await fetch(`${VOICE_SERVER_URL}/speak`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
+      // Lógica de Micrófono y DeepSeek
+      if (micButton) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+          micButton.addEventListener('click', () => alert('Tu navegador no soporta micrófono. Prueba en Chrome.'));
+        } else {
+          const recognition = new SpeechRecognition();
+          recognition.lang = 'es-MX';
+          recognition.interimResults = false;
+
+          micButton.addEventListener('click', () => {
+            recognition.start();
+            setVoiceMessage('Escuchando...');
+          });
+
+          recognition.onresult = async (event) => {
+            const text = event.results[0][0].transcript;
+            setVoiceMessage(`Dijiste: "${text}"`);
+            
+            try {
+              setVoiceMessage('Angel está pensando...');
+              const response = await fetch(`${VOICE_SERVER_URL}/ask`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ question: text })
+              });
+              const data = await response.json();
+              if (data.audio) {
+                setVoiceMessage(`Angel dice: ${data.answer}`);
+                playBase64Audio(data.audio);
               }
-            });
+            } catch (e) {
+              setVoiceMessage('Error al procesar pregunta', true);
+            }
+          };
+
+          recognition.onerror = () => setVoiceMessage('Error en el micrófono', true);
+        }
+      }
 
             if (!response.ok) {
               throw new Error(`Voice server returned ${response.status}`);
