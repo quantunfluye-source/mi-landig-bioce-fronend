@@ -691,6 +691,184 @@
       margin-bottom: 0;
     }
 
+    /* PLANES SECTION */
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .plan {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 40px 32px;
+      border: 1px solid rgba(201, 168, 107, 0.1);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .plan--featured {
+      border-color: var(--gold);
+      border-width: 2px;
+    }
+
+    @media (min-width: 768px) {
+      .plan--featured {
+        transform: scale(1.03);
+      }
+    }
+
+    .plan-badge {
+      background: var(--gold);
+      color: var(--bg);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      padding: 4px 12px;
+      border-radius: 99px;
+      align-self: flex-start;
+    }
+
+    .plan-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--text);
+      margin: 0;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .plan-price .currency {
+      font-size: 24px;
+      color: var(--gold);
+    }
+
+    .plan-price .amount {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 56px;
+      color: var(--text);
+    }
+
+    .plan-price .period {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .plan-list {
+      list-style: none;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      margin: 0;
+    }
+
+    .plan-list li {
+      color: var(--muted);
+      font-size: 15px;
+      padding-left: 20px;
+      position: relative;
+    }
+
+    .plan-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    .plan-btn {
+      margin-top: auto;
+      text-align: center;
+      justify-content: center;
+    }
+
+    /* TESTIMONIOS SECTION */
+    .testimonial {
+      background: rgba(201, 168, 107, 0.04);
+      border: 1px solid rgba(201, 168, 107, 0.1);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .stars {
+      color: var(--gold);
+      font-size: 18px;
+    }
+
+    .testimonial p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      font-style: italic;
+      margin: 0;
+    }
+
+    .test-name {
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* CTA SECTION */
+    .cta-section {
+      background: radial-gradient(ellipse at center, #0f1f18 0%, var(--bg) 70%);
+      padding: clamp(80px, 12vw, 140px) 0;
+    }
+
+    .cta-inner {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .cta-btn {
+      font-size: 20px;
+      padding: 22px 56px;
+    }
+
+    .cta-note {
+      color: var(--muted);
+      font-size: 14px;
+      margin: 0;
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background: var(--surface);
+      padding: 28px 0;
+      border-top: 1px solid rgba(201, 168, 107, 0.1);
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-link {
+      color: var(--gold);
+      font-weight: 600;
+      text-decoration: none;
+    }
+
     /* RESPONSIVE */
     @media (min-width: 768px) {
       .section-grid {
@@ -848,5 +1026,97 @@
       </div>
     </div>
   </section>
+
+  <!-- PLANES -->
+  <section class="section section--dark" aria-labelledby="planes-title">
+    <div class="container">
+      <div class="section-heading reveal">
+        <p class="section-kicker">Planes</p>
+        <h2 class="section-title" id="planes-title">Elige tu plan</h2>
+      </div>
+      <div class="plans-grid">
+        <div class="plan reveal">
+          <p class="plan-name">Starter</p>
+          <div class="plan-price"><span class="currency">$</span><span class="amount">390</span><span class="period">/mes</span></div>
+          <ul class="plan-list">
+            <li>600 minutos de voz IA</li>
+            <li>Respuestas automáticas WhatsApp</li>
+            <li>SEO básico</li>
+          </ul>
+          <a class="btn-primary plan-btn" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20me%20interesa%20el%20plan%20STARTER" target="_blank" rel="noopener">Empezar ahora</a>
+        </div>
+        <div class="plan plan--featured reveal">
+          <div class="plan-badge">MÁS POPULAR</div>
+          <p class="plan-name">Pro</p>
+          <div class="plan-price"><span class="currency">$</span><span class="amount">590</span><span class="period">/mes</span></div>
+          <ul class="plan-list">
+            <li>1,500 minutos de voz IA</li>
+            <li>SEO + AEO para asistentes de voz</li>
+            <li>Reportes semanales</li>
+            <li>Soporte prioritario</li>
+          </ul>
+          <a class="btn-primary plan-btn" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20me%20interesa%20el%20plan%20PRO" target="_blank" rel="noopener">Empezar ahora</a>
+        </div>
+        <div class="plan reveal">
+          <p class="plan-name">Premium</p>
+          <div class="plan-price"><span class="currency">$</span><span class="amount">990</span><span class="period">/mes</span></div>
+          <ul class="plan-list">
+            <li>3,800 minutos de voz IA</li>
+            <li>SEO + AEO + GEO</li>
+            <li>Integración multi-canal</li>
+            <li>Soporte 24/7</li>
+          </ul>
+          <a class="btn-primary plan-btn" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20me%20interesa%20el%20plan%20PREMIUM" target="_blank" rel="noopener">Empezar ahora</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section class="section section--surface" aria-labelledby="test-title">
+    <div class="container">
+      <div class="section-heading reveal">
+        <p class="section-kicker">Prueba social</p>
+        <h2 class="section-title" id="test-title">Clientes que ya venden mientras siguen con su día</h2>
+      </div>
+      <div class="cards-3">
+        <div class="testimonial reveal">
+          <div class="stars">★★★★★</div>
+          <p>"Desde que puse el empleado, vendo mientras como. Me llegó un pedido a las 3am y ya estaba pagado."</p>
+          <span class="test-name">— Tacos El Güero, Guadalajara</span>
+        </div>
+        <div class="testimonial reveal">
+          <div class="stars">★★★★★</div>
+          <p>"Mi refaccionaria nunca había vendido en la madrugada. Ahora el bot cierra refacciones mientras yo duermo."</p>
+          <span class="test-name">— Refaccionaria El Compadre</span>
+        </div>
+        <div class="testimonial reveal">
+          <div class="stars">★★★★★</div>
+          <p>"Pensé que era caro pero en el primer mes recuperé la inversión. Angel no vende humo, cumple lo que dice."</p>
+          <span class="test-name">— Estética Yaz, Zapopan</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="section cta-section" aria-labelledby="cta-title">
+    <div class="container cta-inner">
+      <p class="section-kicker reveal">¿Listo?</p>
+      <h2 class="section-title reveal" id="cta-title" style="--delay:0.1s">¿Listo para tu empleado digital?</h2>
+      <a class="btn-primary cta-btn reveal" style="--delay:0.2s" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20quiero%20mi%20Empleado%20Digital%2024%2F7" target="_blank" rel="noopener">
+        Hablar con Angel por WhatsApp
+      </a>
+      <p class="cta-note reveal" style="--delay:0.3s">Respuesta en minutos. Sin compromiso.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <span>Angel Leon © 2025 | Empleado Digital 24/7</span>
+      <a href="https://wa.me/523348984979" target="_blank" rel="noopener" class="footer-link">WhatsApp: 33 4898 4979</a>
+    </div>
+  </footer>
 </body>
 </html>
