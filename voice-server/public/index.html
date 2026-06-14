@@ -1223,13 +1223,20 @@
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ question })
             });
-            if (!res.ok) throw new Error('Error del servidor');
+            if (!res.ok) {
+              if (res.status === 503) {
+                throw new Error('API no configurada. Configura DEEPSEEK_API_KEY en .env');
+              }
+              throw new Error('Error del servidor');
+            }
             const { answer, audio } = await res.json();
             setStatus(`Angel: "${answer}"`);
-            await playBase64Audio(audio);
+            if (audio) {
+              await playBase64Audio(audio);
+            }
             setStatus('');
           } catch (e) {
-            setStatus('Error al procesar tu pregunta. Intenta de nuevo.', true);
+            setStatus(e.message || 'Error al procesar tu pregunta. Intenta de nuevo.', true);
           } finally {
             voiceBtn.disabled = false;
             voiceBtn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/></svg> Pregúntale algo a Angel`;

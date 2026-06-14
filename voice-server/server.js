@@ -86,16 +86,23 @@ app.post('/speak', async (req, res) => {
 
 app.post('/ask', async (req, res) => {
   try {
-    if (!DEEPSEEK_API_KEY) {
-      return res.status(503).json({ error: 'DeepSeek no configurado' });
-    }
-
     const { question } = req.body;
     if (!question) {
       return res.status(400).json({ error: 'question requerido' });
     }
 
     const profile = await readProfile();
+
+    // Si no hay DEEPSEEK_API_KEY, devolver respuesta genérica
+    if (!DEEPSEEK_API_KEY) {
+      const genericAnswer = `Hola, gracias por tu pregunta. Te recomiendo contactarme directamente por WhatsApp al 33 4898 4979 para hablar sobre tu negocio y cómo el Empleado Digital 24/7 puede ayudarte.`;
+      try {
+        const audio = await synthesizeSpeech(genericAnswer);
+        return res.json({ answer: genericAnswer, audio });
+      } catch (e) {
+        return res.json({ answer: genericAnswer, audio: null });
+      }
+    }
 
     const systemPrompt = `Eres Angel Leon, vendedor de Empleado Digital 24/7. Trabajas para Clario-IA.com.
 Datos: ${JSON.stringify(profile)}.
