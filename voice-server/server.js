@@ -22,6 +22,9 @@ app.use(express.json({ limit: '1mb' }));
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
 
+// Servir archivos estáticos de la carpeta 'public'
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
 });
