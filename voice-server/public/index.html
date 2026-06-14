@@ -261,6 +261,209 @@
       transform: translateY(0);
     }
 
+    /* NAVBAR INNER */
+    .site-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 76px;
+      z-index: 1000;
+      background: transparent;
+      backdrop-filter: blur(0);
+      transition: background 0.6s ease, backdrop-filter 0.6s ease;
+      border-bottom: 1px solid transparent;
+    }
+
+    .site-nav.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(201, 168, 107, 0.1);
+    }
+
+    .nav-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 76px;
+    }
+
+    .brand {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--gold);
+    }
+
+    .nav-cta {
+      background: var(--gold);
+      color: var(--bg);
+      padding: 10px 20px;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      display: inline-block;
+    }
+
+    .nav-cta:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+
+    /* VOICE BAR UPDATES */
+    .voice-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 0;
+      background: var(--surface);
+      border-bottom: 1px solid rgba(201, 168, 107, 0.15);
+      position: relative;
+      z-index: 900;
+    }
+
+    .voice-bar .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .voice-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      padding: 11px 28px;
+      border-radius: 99px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .voice-btn:hover {
+      background: rgba(201, 168, 107, 0.1);
+    }
+
+    .voice-btn.loading {
+      opacity: 0.7;
+      cursor: wait;
+    }
+
+    .voice-status {
+      font-size: 13px;
+      color: var(--muted);
+      min-height: 20px;
+      text-align: center;
+    }
+
+    .voice-status.error {
+      color: #E74C3C;
+    }
+
+    /* HERO STYLES */
+    .hero-eyebrow {
+      font-size: 12px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin: 0 0 20px 0;
+      display: block;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(16px, 4vw, 32px);
+      width: 100%;
+    }
+
+    .hero-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(48px, 8vw, 88px);
+      line-height: 1.05;
+      margin: 0 0 24px 0;
+      color: var(--text);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2.3vw, 18px);
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 0 20px 0;
+    }
+
+    .hero-stats {
+      font-size: 14px;
+      color: var(--muted);
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 0 0 36px 0;
+    }
+
+    .hero-stats .sep {
+      color: var(--gold);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      background: var(--gold);
+      color: var(--bg);
+      padding: 18px 36px;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 20px 40px rgba(201, 168, 107, 0.25);
+    }
+
+    .hero-cta {
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-scroll {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 48px;
+      color: var(--muted);
+      font-size: 12px;
+      opacity: 0.7;
+    }
+
+    .hero-scroll svg {
+      stroke: currentColor;
+      animation: bounce 2s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(6px);
+      }
+    }
+
     /* RESPONSIVE */
     @media (min-width: 768px) {
       .section-grid {
@@ -287,3 +490,55 @@
     }
   </style>
 </head>
+
+<body>
+  <!-- NAVBAR -->
+  <header>
+    <nav class="site-nav" id="nav">
+      <div class="container nav-inner">
+        <span class="brand">Angel Leon | Empleado Digital</span>
+        <a class="nav-cta" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20Empleado%20Digital%2024%2F7" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </nav>
+  </header>
+
+  <!-- VOICE BAR -->
+  <div class="voice-bar" id="voice-bar">
+    <div class="container">
+      <button type="button" id="voice-btn" class="voice-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <rect x="9" y="2" width="6" height="12" rx="3"/>
+          <path d="M5 10a7 7 0 0 0 14 0M12 19v3M8 22h8"/>
+        </svg>
+        Pregúntale algo a Angel
+      </button>
+      <div id="voice-status" class="voice-status"></div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-inner">
+      <p class="hero-eyebrow">Guadalajara, México · Voz IA que vende</p>
+      <h1 class="hero-title" id="hero-title">Tu negocio no duerme.<br>¿Por qué tú sí?</h1>
+      <p class="hero-subtitle">Empleado Digital 24/7 que contesta, vende y cierra por WhatsApp mientras duermes.</p>
+      <div class="hero-stats">
+        <span>600 min incluidos</span>
+        <span class="sep">·</span>
+        <span>Respuesta en &lt;3 seg</span>
+        <span class="sep">·</span>
+        <span>Sin contrato</span>
+      </div>
+      <a class="btn-primary hero-cta" href="https://wa.me/523348984979?text=Hola%20Angel%2C%20quiero%20informaci%C3%B3n%20sobre%20el%20Empleado%20Digital%2024%2F7" target="_blank" rel="noopener">
+        Hablar con Angel por WhatsApp
+      </a>
+      <div class="hero-scroll" aria-hidden="true">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
+        <span>Desliza hacia abajo</span>
+      </div>
+    </div>
+  </section>
+</body>
+</html>
