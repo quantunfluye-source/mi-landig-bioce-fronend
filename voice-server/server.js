@@ -100,6 +100,7 @@ app.post('/speak', async (req, res) => {
 
     res.json({ audio });
   } catch (error) {
+    console.error('ERROR EN /speak:', error.message);
     res.status(500).json({
       error: 'Unable to generate voice audio',
       details: error.message
