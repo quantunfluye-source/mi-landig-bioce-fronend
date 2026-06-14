@@ -464,6 +464,233 @@
       }
     }
 
+    /* PROBLEMA SECTION */
+    .section-heading {
+      margin-bottom: 0;
+    }
+
+    .cards-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .problem-card {
+      background: rgba(201, 168, 107, 0.05);
+      border: 1px solid rgba(201, 168, 107, 0.12);
+      border-radius: 16px;
+      padding: 32px 28px;
+    }
+
+    .problem-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .problem-card h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .problem-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* SOLUCION SECTION */
+    .solucion-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 64px;
+      margin-top: 48px;
+    }
+
+    @media (min-width: 768px) {
+      .solucion-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .solucion-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .solucion-text p {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 24px;
+    }
+
+    .check-list {
+      list-style: none;
+      padding: 0;
+      margin: 24px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .check-list li {
+      padding-left: 24px;
+      position: relative;
+      color: var(--muted);
+    }
+
+    .check-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* WHATSAPP MOCKUP */
+    .whatsapp-mockup {
+      background: #0D1117;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 0 0 2px rgba(201, 168, 107, 0.2);
+      max-width: 360px;
+      margin: 0 auto;
+    }
+
+    .wp-header {
+      background: #1F2C34;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+
+    .wp-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #25D366;
+    }
+
+    .wp-online {
+      color: #25D366;
+      font-size: 12px;
+      margin-left: auto;
+    }
+
+    .wp-body {
+      padding: 20px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .wp-bubble {
+      padding: 10px 14px;
+      border-radius: 12px;
+      font-size: 14px;
+      max-width: 80%;
+      line-height: 1.5;
+    }
+
+    .wp-client {
+      background: #1F2C34;
+      color: var(--text);
+      align-self: flex-start;
+      border-radius: 0 12px 12px 12px;
+    }
+
+    .wp-bot {
+      background: #005C4B;
+      color: var(--text);
+      align-self: flex-end;
+      border-radius: 12px 0 12px 12px;
+    }
+
+    .wp-typing {
+      display: flex;
+      gap: 4px;
+      align-self: flex-start;
+      padding: 10px 14px;
+      background: #1F2C34;
+      border-radius: 12px;
+    }
+
+    .wp-typing span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--muted);
+      animation: dotPulse 1.4s infinite;
+    }
+
+    .wp-typing span:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .wp-typing span:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes dotPulse {
+      0%, 80%, 100% {
+        opacity: 0.3;
+        transform: scale(0.8);
+      }
+      40% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    /* ANGEL SECTION */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      align-items: start;
+      margin-top: 48px;
+    }
+
+    @media (min-width: 768px) {
+      .about-grid {
+        grid-template-columns: 200px 1fr;
+      }
+    }
+
+    .about-portrait {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+      border: 3px solid var(--gold);
+      flex-shrink: 0;
+    }
+
+    .about-copy p {
+      color: var(--muted);
+      margin-bottom: 16px;
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    .firma {
+      font-family: 'Montserrat', sans-serif !important;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--gold);
+      font-style: italic;
+      margin-top: 8px;
+      margin-bottom: 0;
+    }
+
     /* RESPONSIVE */
     @media (min-width: 768px) {
       .section-grid {
@@ -537,6 +764,87 @@
           <path d="M12 5v14M5 12l7 7 7-7"/>
         </svg>
         <span>Desliza hacia abajo</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROBLEMA -->
+  <section class="section section--surface reveal-section" aria-labelledby="problema-title">
+    <div class="container">
+      <div class="section-heading reveal">
+        <p class="section-kicker">El problema</p>
+        <h2 class="section-title" id="problema-title">Esto te está costando dinero ahora mismo</h2>
+      </div>
+      <div class="cards-3">
+        <div class="problem-card reveal">
+          <div class="problem-icon">😴</div>
+          <h3>Pierdes clientes a las 2am</h3>
+          <p>Mientras duermes, tus competidores que sí tienen un empleado digital están cerrando las ventas que deberían ser tuyas.</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon">⏱️</div>
+          <h3>Contestar tarde = venta perdida</h3>
+          <p>El 78% de las ventas las cierra quien responde primero. Si tardas más de 5 minutos, el cliente ya se fue con otro.</p>
+        </div>
+        <div class="problem-card reveal">
+          <div class="problem-icon">💸</div>
+          <h3>Pagar sueldo duele</h3>
+          <p>Un recepcionista cuesta $8,000 al mes y no trabaja de madrugada. El Empleado Digital cuesta $390 y nunca descansa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOLUCION -->
+  <section class="section section--dark reveal-section" aria-labelledby="solucion-title">
+    <div class="container">
+      <div class="section-heading reveal">
+        <p class="section-kicker">La solución</p>
+        <h2 class="section-title" id="solucion-title">No es un bot. Es tu mejor vendedor</h2>
+      </div>
+      <div class="solucion-grid">
+        <div class="solucion-text reveal">
+          <p>Tu negocio queda atendido las 24 horas con una voz IA que suena humana, ordenada y lista para cerrar por WhatsApp, incluso cuando tú ya cerraste el día.</p>
+          <ul class="check-list">
+            <li>Contesta en menos de 3 segundos</li>
+            <li>Califica al cliente y lo lleva al cierre</li>
+            <li>Funciona en WhatsApp sin instalar nada</li>
+            <li>Tú ves todo en un reporte semanal</li>
+          </ul>
+        </div>
+        <div class="whatsapp-mockup reveal">
+          <div class="wp-header">
+            <div class="wp-dot"></div>
+            <span>Empleado Digital ✓✓</span>
+            <span class="wp-online">● en línea</span>
+          </div>
+          <div class="wp-body">
+            <div class="wp-bubble wp-client">Hola, ¿cuánto cuesta el servicio?</div>
+            <div class="wp-bubble wp-bot">¡Hola! El plan más popular es el Pro en $590/mes con 1,500 minutos de voz IA 🤝 ¿Te cuento más?</div>
+            <div class="wp-bubble wp-client">Sí, ¿cómo funciona?</div>
+            <div class="wp-bubble wp-bot">Es súper sencillo: instalamos el empleado en tu WhatsApp y él contesta, vende y agenda por ti las 24hrs ✅</div>
+            <div class="wp-typing"><span></span><span></span><span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ANGEL LEON -->
+  <section class="section section--surface reveal-section" aria-labelledby="angel-title">
+    <div class="container">
+      <div class="section-heading reveal">
+        <p class="section-kicker">Angel Leon</p>
+        <h2 class="section-title" id="angel-title">Sistemas que trabajan. Sin humo.</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-portrait reveal" aria-hidden="true"></div>
+        <div class="about-copy reveal">
+          <p>Soy Angel Leon, 8 años ayudando negocios en Guadalajara a vender más sin contratar más. Honesto, directo, responsable.</p>
+          <p>No vendo humo, instalo sistemas que trabajan. Mi empleado digital ya atiende refaccionarias, estéticas y tiendas del Baratillo.</p>
+          <p>Actualmente trabajo con <strong style="color:var(--gold)">Clario-IA.com</strong> para traerte la tecnología que antes solo tenían las grandes empresas.</p>
+          <p class="firma">Angel Leon</p>
+        </div>
       </div>
     </div>
   </section>
