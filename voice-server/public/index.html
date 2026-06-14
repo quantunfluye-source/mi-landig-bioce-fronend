@@ -1,2 +1,289 @@
 <!DOCTYPE html>
-<html></html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Empleado con voz IA que contesta y vende por WhatsApp 24/7">
+  
+  <meta property="og:title" content="Empleado Digital 24/7 | Angel Leon">
+  <meta property="og:description" content="Empleado con voz IA que contesta y vende por WhatsApp 24/7">
+  <meta property="og:image" content="https://tu-sitio.onrender.com/og-image.png">
+  <meta property="og:url" content="https://tu-sitio.onrender.com">
+  <meta property="og:type" content="website">
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Empleado Digital 24/7 | Angel Leon">
+  <meta name="twitter:description" content="Empleado con voz IA que contesta y vende por WhatsApp 24/7">
+  <meta name="twitter:image" content="https://tu-sitio.onrender.com/og-image.png">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%230A0A0A' width='100' height='100'/><text x='50' y='70' font-size='70' font-weight='900' fill='%23C9A86B' text-anchor='middle' font-family='serif'>A</text></svg>">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <title>Empleado Digital 24/7 | Angel Leon</title>
+  
+  <style>
+    :root {
+      --bg: #0A0A0A;
+      --surface: #1A1A1A;
+      --gold: #C9A86B;
+      --gold-h: #D9BC8A;
+      --text: #F5F5F0;
+      --muted: #B8B8B0;
+      --emerald: #0F3D2E;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      overflow-x: hidden;
+      margin: 0;
+      padding-top: 76px;
+    }
+
+    /* NAVBAR FIJO */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 76px;
+      z-index: 1000;
+      background: transparent;
+      backdrop-filter: blur(0);
+      transition: background 0.6s ease, backdrop-filter 0.6s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(16px, 4vw, 32px);
+      border-bottom: 1px solid transparent;
+      transition: all 0.6s ease;
+    }
+
+    nav.scrolled {
+      background: rgba(10, 10, 10, 0.95);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(201, 168, 107, 0.1);
+    }
+
+    .nav-logo {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: 24px;
+      color: var(--gold);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-whatsapp {
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      padding: 8px 16px;
+      border-radius: 99px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+
+    .nav-whatsapp:hover {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    /* VOICE BAR */
+    .voice-bar {
+      position: relative;
+      background: var(--surface);
+      border-bottom: 1px solid rgba(201, 168, 107, 0.15);
+      padding: 14px;
+      z-index: 900;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .voice-button {
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      padding: 12px 24px;
+      border-radius: 99px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .voice-button:hover {
+      background: var(--gold);
+      color: var(--bg);
+      transform: scale(1.02);
+    }
+
+    .voice-button.loading,
+    .voice-button.speaking {
+      background: var(--gold);
+      color: var(--bg);
+      cursor: not-allowed;
+    }
+
+    .voice-button.error {
+      border-color: #E74C3C;
+      color: #E74C3C;
+    }
+
+    #voice-status {
+      font-size: 13px;
+      color: var(--muted);
+      text-align: center;
+      min-height: 18px;
+    }
+
+    #voice-status.error {
+      color: #E74C3C;
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      min-height: calc(100vh - 76px);
+      display: flex;
+      align-items: center;
+      padding: 60px 0 80px;
+      background: linear-gradient(180deg, #0A0A0A 0%, #0A0A0A 55%, #1A1A1A 100%);
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(16px, 4vw, 32px);
+      width: 100%;
+    }
+
+    .hero h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 900;
+      font-size: clamp(48px, 8vw, 88px);
+      line-height: 1.05;
+      color: var(--text);
+      margin: 0 0 24px 0;
+      opacity: 1;
+    }
+
+    .hero p {
+      font-size: clamp(16px, 2.3vw, 18px);
+      color: var(--muted);
+      margin: 0 0 40px 0;
+      max-width: 500px;
+      opacity: 1;
+    }
+
+    .hero .cta {
+      background: var(--gold);
+      color: var(--bg);
+      padding: 16px 40px;
+      border: none;
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+      display: inline-block;
+      opacity: 1;
+    }
+
+    .hero .cta:hover {
+      transform: scale(1.05);
+      background: var(--gold-h);
+    }
+
+    /* SECCIONES GENERALES */
+    .section {
+      padding: clamp(64px, 10vw, 120px) 0;
+    }
+
+    .section--dark {
+      background: var(--bg);
+    }
+
+    .section--surface {
+      background: var(--surface);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 clamp(16px, 4vw, 32px);
+    }
+
+    .section-kicker {
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 600;
+      margin: 0 0 12px 0;
+    }
+
+    .section-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(32px, 5vw, 52px);
+      margin: 0 0 32px 0;
+      color: var(--text);
+      line-height: 1.1;
+    }
+
+    /* REVEAL ANIMATION */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* RESPONSIVE */
+    @media (min-width: 768px) {
+      .section-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: clamp(24px, 4vw, 40px);
+      }
+
+      .section-grid.cols-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .section-grid.cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 767px) {
+      .section-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+      }
+    }
+  </style>
+</head>
