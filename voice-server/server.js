@@ -221,5 +221,5 @@ app.post('/ask', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Voice server running on port ${PORT}`);
+  console.log(`Voice server v1.1 (Fresh Deploy) running on port ${PORT}`);
 });
