@@ -11,9 +11,25 @@ const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN || '';
 const GOOGLE_TTS_API_KEY = process.env.GOOGLE_TTS_API_KEY || '';
 const PROFILE_PATH = path.join(__dirname, 'angel_profile.json');
 const TTS_ENDPOINT = 'https://texttospeech.googleapis.com/v1/text:synthesize';
-const VOICES = ['es-MX-Wavenet-B', 'es-MX-Standard-B'];
+const VOICES = [
+  'es-MX-Neural2-B', // Premium - Neural 2 (Masculina, principal)
+  'es-MX-Neural2-C', // Premium - Neural 2 (Masculina, alternativa)
+  'es-MX-Studio-B',  // Premium - Studio (Ultra calidad, si está disponible)
+  'es-MX-Wavenet-B', // Premium - Wavenet (Masculina, clásica alta calidad)
+  'es-MX-Wavenet-C', // Premium - Wavenet (Masculina, alternativa)
+  'es-MX-Standard-B', // Estándar (Masculina, respaldo 1)
+  'es-MX-Standard-A'  // Estándar (Respaldo final)
+];
+
 const corsOptions = {
-  origin: '*',
+  origin: function (origin, callback) {
+    // Si no hay origen (como en curl o herramientas de test) o coincide con ALLOWED_ORIGIN, permitir
+    if (!origin || origin === ALLOWED_ORIGIN || ALLOWED_ORIGIN === '*' || !ALLOWED_ORIGIN) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
 };
@@ -26,19 +42,27 @@ app.options('*', cors(corsOptions));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/health', (req, res) => {
-  res.json({ status: 'ok' });
+  res.json({ status: 'ok', config: { allowedOrigin: ALLOWED_ORIGIN ? 'Set' : 'Not Set', hasKey: !!GOOGLE_TTS_API_KEY } });
 });
 
 async function readProfile() {
-  const raw = await fs.readFile(PROFILE_PATH, 'utf8');
-  return JSON.parse(raw);
+  try {
+    const raw = await fs.readFile(PROFILE_PATH, 'utf8');
+    return JSON.parse(raw);
+  } catch (error) {
+    console.error('Error leyendo angel_profile.json:', error.message);
+    throw new Error('Could not read profile data');
+  }
 }
 
 async function synthesizeSpeech(text, voiceName) {
   if (!GOOGLE_TTS_API_KEY) {
+    console.error('DIAGNOSTICO: GOOGLE_TTS_API_KEY no está definida en el entorno.');
     throw new Error('Missing GOOGLE_TTS_API_KEY');
   }
 
+  console.log(`Intentando síntesis con voz: ${voiceName}...`);
+  
   const response = await fetch(`${TTS_ENDPOINT}?key=${encodeURIComponent(GOOGLE_TTS_API_KEY)}`, {
     method: 'POST',
     headers: {
@@ -48,11 +72,12 @@ async function synthesizeSpeech(text, voiceName) {
       input: { text },
       voice: {
         languageCode: 'es-MX',
-        name: voiceName,
-        ssmlGender: 'MALE'
+        name: voiceName
       },
       audioConfig: {
-        audioEncoding: 'MP3'
+        audioEncoding: 'MP3',
+        pitch: -2.0, // Un poco más grave para que suene más serio/profesional
+        speakingRate: 1.0
       }
     })
   });
@@ -60,14 +85,16 @@ async function synthesizeSpeech(text, voiceName) {
   const payload = await response.json().catch(() => ({}));
 
   if (!response.ok) {
-    const message = payload?.error?.message || `Text-to-Speech request failed with status ${response.status}`;
+    console.error('DIAGNOSTICO - Error detallado de Google:', JSON.stringify(payload, null, 2));
+    const message = payload?.error?.message || `Google API error: ${response.status}`;
     const error = new Error(message);
     error.status = response.status;
+    error.fullError = payload;
     throw error;
   }
 
-  if (!payload.audioContent || typeof payload.audioContent !== 'string') {
-    throw new Error('Missing audioContent in Text-to-Speech response');
+  if (!payload.audioContent) {
+    throw new Error('No audio content in Google response');
   }
 
   return payload.audioContent;
