@@ -101,7 +101,9 @@
     /* NAVBAR */
     .site-nav {
       position: fixed;
-      inset: 0 0 auto 0;
+      top: 0;
+      left: 0;
+      right: 0;
       z-index: 1000;
       background: transparent;
       border-bottom: 1px solid transparent;
@@ -188,7 +190,8 @@
       min-height: 100vh;
       display: flex;
       align-items: center;
-      padding: 120px 0 96px;
+      padding-top: clamp(150px, 18vw, 200px);
+      padding-bottom: 96px;
       overflow: hidden;
       isolation: isolate;
       background:
@@ -878,11 +881,11 @@
     /* CONVERSATION BAR */
     .voice-bar {
       position: relative;
+      z-index: 999;
       background: #1A1A1A;
       border-bottom: 1px solid rgba(201, 168, 107, 0.15);
-      padding: 16px;
-      z-index: 900;
-      margin-top: 76px; /* Altura aproximada del navbar */
+      margin-top: 0;
+      padding: 12px 0;
     }
 
     .voice-bar__inner {
@@ -947,9 +950,6 @@
       .voice-bar__inner {
         flex-direction: column;
         gap: 12px;
-      }
-      .voice-bar {
-        margin-top: 0; /* En mobile el nav puede variar */
       }
     }
 
@@ -1424,7 +1424,7 @@
 
     @media (max-width: 767px) {
       .hero {
-        padding-top: 108px;
+        padding-top: clamp(150px, 18vw, 200px);
       }
 
       .hero__title {
@@ -1500,7 +1500,7 @@
       }
 
       .hero {
-        padding-top: 150px;
+        padding-top: clamp(150px, 18vw, 200px);
       }
     }
 
